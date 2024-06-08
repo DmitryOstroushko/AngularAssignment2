@@ -6,5 +6,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'AngularAssignment2';
+
+  isLoggedIn: boolean = false;
+  userInfo: any;
+
+  title = 'Job Portal';
+
+  constructor() {
+    const userData = localStorage.getItem('jobLoginUser');
+    if (userData == null) {
+      this.isLoggedIn = false;
+    } else {
+      this.isLoggedIn = true;
+      this.userInfo = JSON.parse(userData);
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('jobLoginUser');
+    this.isLoggedIn = false;
+  }
 }

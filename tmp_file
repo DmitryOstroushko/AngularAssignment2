@@ -1,0 +1,5 @@
+            "styles": [
+              // "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              // "./node_modules/@fortawesom/fortawesom-free/css/all.min.css",
+              "src/styles.css"
+            ],
