@@ -33,7 +33,7 @@ const routes: Routes = [
     component: JobsComponent
   },
   {
-    path: 'job-detail',
+    path: 'job-detail:/jobid',
     component: JobDetailsComponent
   },
   {
