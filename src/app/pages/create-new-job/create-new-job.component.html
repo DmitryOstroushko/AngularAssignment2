@@ -13,9 +13,9 @@
     <div class="row">
         <div class="form-outline mb-4">
             <div class="form-outline datepicker">
-                <select class="form-control" [(ngModel)]="jobObj.CategoryId" name="CategoryId">
+                <select class="form-control" [(ngModel)]="jobObj.Category" name="Category">
                     <option value="" selected>Select Job Category</option>
-                    <option *ngFor="let category of categoryList" [value]="category.jobCategoryId">{{category.categoryName}}</option>
+                    <option *ngFor="let category of categoryList" [value]="category.jobCategory">{{category}}</option>
                 </select>
                 <label for="categoryInput" class="form-label">Select Category</label>
             </div>
@@ -23,29 +23,11 @@
 
         <div class="col-md-4 mb-1">
             <div class="form-outline datepicker">
-                <select class="form-control" [(ngModel)]="jobObj.Experience" name="Experience">
-                    <option value="" selected>Select Experience Level</option>
-                    <option value="Fresher">Fresher</option>
-                    <option value="Experienced">Experienced</option>
+                <select class="form-control" [(ngModel)]="jobObj.Company" name="Company">
+                    <option value="" hidden="">Select Company</option>
+                    <option *ngFor="let company of companyList" [value]="company.Id">{{company.Name}}</option>
                 </select>
-                <label for="exampleDatepicker1" class="form-label">Select Experience</label>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mb-1 pb-2 pb-md-0">
-        <div class="col-md-4 mb-1">
-            <div class="form-outline datepicker">
-                <input type="text" class="form-control" [(ngModel)]="jobObj.Package"
-                    name="Package" />
-                <label for="exampleDatepicker1" class="form-label">Package</label>
-            </div>
-        </div>
-        <div class="col-mb-4">
-            <div class="form-outline">
-                <input type="text" class="form-control" [(ngModel)]="jobObj.Location"
-                    name="Location" />
-                <label class="form-label" for="form3Example1w">Location</label>
+                <label for="exampleDatepicker1" class="form-label">Select Company</label>
             </div>
         </div>
     </div>

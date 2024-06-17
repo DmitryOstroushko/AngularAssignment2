@@ -9,19 +9,23 @@ import { JobService } from 'src/app/service/job.service';
 export class CreateNewJobComponent implements OnInit {
 
   jobObj: any = {
-    "JobId": 0,
-    "JobName": "",
+    "Id": 0,
+    "Company": 0,
     "CreateDate": new Date(),
-    "EmployerId": 0,
-    "CategoryId": 0,
-    "Experience": "",
-    "Package": "",
-    "Location": "",
-    "JobDescription": "",
-    "IsActive": true
+    "JobName": "",
+    "Category": 0,
+    "JobDescription": ""
   };
 
-  categoryList: any [] = [];
+  categoryList: any [] = [
+    "Front end",
+    "Back end", 
+    "Full stack",
+    "Database administrator",
+    "DevOps"
+  ];
+
+  companyList: any [] = [];
 
   constructor(private jobSrv: JobService) {
     const userData = localStorage.getItem('jobLoginUser');
@@ -31,16 +35,16 @@ export class CreateNewJobComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.getJobCategories();
+  ngOnInit(): void { 
+    this.getCompanyList();
   }
 
-  getJobCategories() {
-    this.jobSrv.getAllCategory().subscribe((res: any) => {
-      this.categoryList = res.data;
+  getCompanyList() {
+    this.jobSrv.getCompanyList().subscribe((res: any) => {
+      this.companyList = res.data;
     })
   }
-
+  
   createJob() {
     this.jobSrv.createNewJob(this.jobObj).subscribe((res: any) => {
       if (res.result) {

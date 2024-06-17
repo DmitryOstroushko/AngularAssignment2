@@ -11,14 +11,15 @@ export class JobsComponent implements OnInit {
 
   jobList: any [] = [];
 
-  constructor(private jobSer: JobService, private router: Router) { }
+  constructor(private jobSrv: JobService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadJobs();
   }
 
   loadJobs() {
-    this.jobSer.getActiveJobs().subscribe((res: any) => {
+    this.jobSrv.getActiveJobs().subscribe((res: any) => {
+      console.log(res.message);
       this.jobList = res.data;
     }) 
   }
@@ -26,4 +27,5 @@ export class JobsComponent implements OnInit {
   openJob(id: number) {
     this.router.navigate(['/job-detail', id]);
   }
+  
 }

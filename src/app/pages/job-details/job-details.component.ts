@@ -13,13 +13,6 @@ export class JobDetailsComponent {
   jobObj: any;
   userInfo: any;
   isLoggedIn: boolean = false;
-  jobApplicationObj = {
-    "ApplicationId": 0,
-    "JobId": 0,
-    "JobSeekerId": 0,
-    "AppliedDate": new Date(),
-    "ApplicationStatus": "New"
-  }
 
   constructor(private activateRoute: ActivatedRoute, private jobSrv: JobService) { 
     const userData = localStorage.getItem('jobLoginUser');
@@ -28,14 +21,12 @@ export class JobDetailsComponent {
     } else {
       this.isLoggedIn = true;
       this.userInfo = JSON.parse(userData);
-      this.jobApplicationObj.JobSeekerId = this.userInfo.jobSeekerId;
     }
     
     this.activateRoute.params.subscribe((res: any) => {
       debugger;
       this.activeJobId = res.jobid;
       this.getJobDetail();
-      this.jobApplicationObj.JobId = this.activeJobId;
     })
   }
 
@@ -45,13 +36,24 @@ export class JobDetailsComponent {
     })
   }
 
-  apply() {
-    this.jobSrv.sendJobApplication(this.jobApplicationObj).subscribe((res: any) => {
+  updateJob() {
+    this.jobSrv.updateJob(this.jobObj).subscribe((res: any) => {
       if (res.result) {
-        alert("You have successfully applied for a job");
+        alert("You have successfully updated a job");
       } else {
         alert(res.message());
       }
     })
   }
+
+  deleteJob() {
+    this.jobSrv.deleteJob(this.activeJobId).subscribe((res: any) => {
+      if (res.result) {
+        alert("You have deleted updated a job");
+      } else {
+        alert(res.message());
+      }
+    })
+  }
+
 }

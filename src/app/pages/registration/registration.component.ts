@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { JobService } from 'src/app/service/job.service';
 
 @Component({
@@ -6,39 +6,30 @@ import { JobService } from 'src/app/service/job.service';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
 
-  employerObj: any = {
-    "EmployerId": 0,
-    "CompanyName": "",
-    "EmailId": "",
-    "MobileNo": "",
-    "PhoneNo": "",
-    "CompanyAddress": "",
-    "City": "",
-    "State": "",
-    "PinCode": "",
-    "LogoURL": "",
-    "GstNo": ""
-  };
-
-  jobSeekerObj: any = {
-    "JobSeekerId": 0,
+  userObj: any = {
+    "Id": 0,
+    "Login": "",
+    "Password": "",
+    "Created": new Date(),
+    "PasswordUpdate": new Date(),
+    "AgreementAccepted": new Date(),
+    "IsLocked": false,
+    "IsInactive": false,
+    "EmailAddress": "",
+    "PhoneNumber": "",
     "FullName": "",
-    "EmailId": "",
-    "MobileNo": "",
-    "ExperienceStatus": "",
-    "ResumeUrl": "",
-    "JobSeekerSkills": [],
-    "JobSeekerWorkExperience": []
+    "ForceChangePassword": false,
+    "PrefferredLanguage": ""
   }
 
-  isJobSeeker: boolean = true;
+  languageList: any [] = [];
 
-  constructor(private job: JobService) { }
+  constructor(private jobSrv: JobService) { }
 
   register() {
-    this.job.registerEmployer(this.employerObj).subscribe((res: any) => {
+    this.jobSrv.register(this.userObj).subscribe((res: any) => {
       if (res.result) {
         alert(res.message);
       } else {
@@ -47,18 +38,17 @@ export class RegistrationComponent {
     })
   }
 
-  registerAsJobSeeker() {
-    this.job.registerAsJobSeeker(this.jobSeekerObj).subscribe((res: any) => {
-      if (res.result) {
-        alert(res.message);
-      } else {
-        alert(res.message);
-      }
-    })
+  ngOnInit(): void {
+    this.getLanguges();
   }
 
+  getLanguges() {
+    this.jobSrv.getLanguageList().subscribe((res: any) => {
+      this.languageList = res.data;
+    })
+  }
+  
 }
-function res(value: Object): void {
-  throw new Error('Function not implemented.');
-}
+
+
 

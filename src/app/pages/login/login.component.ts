@@ -10,21 +10,21 @@ import { JobService } from 'src/app/service/job.service';
 export class LoginComponent {
 
   loginObj: any = {
-    "UserName": "",
+    "Login": "",
     "Password": ""
   }
 
   constructor(private jobSrv: JobService, private router: Router) { }
 
   onLogin() {
-    this.jobSrv.login(this.loginObj.subscribe((res: any) => {
+    this.jobSrv.login(this.loginObj).subscribe((res: any) => {
       if (res.result) {
-        alert('User Logged in Seccess');
+        alert('User Logged in Success');
         localStorage.setItem('jobLoginUser', JSON.stringify(res.data));
         this.router.navigateByUrl('/home');
       } else {
         alert(res.message)
       }
-    }));
+    });
   }
 }
